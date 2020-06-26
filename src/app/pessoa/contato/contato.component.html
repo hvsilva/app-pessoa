@@ -1,0 +1,121 @@
+    <form (ngSubmit)="salvar()" id="formContato" name="formContato">   
+
+    <table style="height: 488px;" width="699" id="tabelaContato">
+        <tbody>
+        <tr style="height: 405px;">
+        <td style="width: 689px; height: 405px;">
+        <table style="width: 696px; height: 414px;">
+        <tbody>
+        <tr style="height: 39px;">
+        <td style="width: 686px; height: 39px;">
+        <table style="height: 49px;" width="670">
+        <tbody>
+        <tr>
+        <td style="width: 327px;">  <h3>{{titulo}}</h3></td>
+        <td style="width: 327px;">&nbsp;</td>
+        <td style="width: 327px;">&nbsp;</td>
+        </tr>
+        </tbody>
+        </table>
+        </td>
+        </tr>
+        <tr style="height: 39px;">
+        <td style="width: 686px; height: 39px;">
+        <table style="width: 693px; height: 314px;">
+        <tbody>
+        <tr style="height: 1px;">
+        <td style="width: 683px; height: 1px;"><label>Código:
+            <input type="input" name="codigo" size="10" [(ngModel)]="contato.id" disabled/>
+        </label></td>
+        </tr>
+        <tr style="height: 18px;">
+        <td style="width: 683px; height: 18px;"> <label>Nome:
+            <input type="input" name="contato" size="30" [(ngModel)]="contato.nome"/>
+        </label></td>
+        </tr>
+        <tr style="height: 18px;">
+        <td style="width: 683px; height: 18px;"><label>Telefone:
+            <input type="input" name="telefone" size="30" [(ngModel)]="contato.telefone"/>
+        </label></td>
+        </tr>
+        <tr style="height: 18px;">
+        <td style="width: 683px; height: 18px;"><label>Celular:
+            <input type="input" name="celular" size="30" [(ngModel)]="contato.celular"/>
+        </label></td>
+        </tr>
+        <tr style="height: 18px;">
+            <td style="width: 683px; height: 18px;">
+                <label>Contato Ativo:
+                    <input type="radio" name="ativo" [(ngModel)]="contato.ativo" [value]="true">Sim
+                    <input type="radio" name="ativo" [(ngModel)]="contato.ativo" [value]="false">Não<br>
+                </label>
+        
+        </td>
+        </tr>
+
+        <tr style="height: 18px;">
+        <td style="width: 683px; height: 18px;"><button type="submit">Salvar</button></td>
+        </tr>
+        <tr style="height: 18px;">
+        <td style="width: 683px; height: 18px;">    
+        
+        <nav class="navbar">
+            <input type="text" name="filtroContato" [(ngModel)]="filtro" class="form-control" placeholder="Pesquisar Por Nome " style="width:40%;margin:30px 40px;float:right;">
+        </nav>       
+        
+        </td>
+        </tr>
+        <tr style="height: 18px;">
+        <td style="width: 683px; height: 18px;">
+        
+            <table>
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Celular</th>   
+                    <th>Reg. Ativo</th>         
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+                </thead>
+                
+                <tbody>
+                    <tr *ngFor="let contato of contatos | filter:filtro | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index;">
+                    <td>{{ contato.id }}</td>        
+                    <td>{{ contato.nome }}</td>   
+                    <td>{{ contato.telefone }}</td>
+                    <td>{{ contato.celular }}</td>                    
+                    <td *ngIf='contato.ativo'>Sim</td>
+                    <td *ngIf='!contato.ativo'>Não</td>
+                    <td><a (click)="editar(contato.id);">Editar</a></td>
+                    <td><a (click)="excluir(contato.id, i);">Excluir</a></td>
+                    </tr>
+                    <tr>
+                    <td colspan="6" style="text-align: right;">Total de Registros: {{ contatos.length }}</td> 
+                    </tr>
+                </tbody>
+                <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+            </table>
+        
+        
+        </td>
+        </tr>
+        <tr style="height: 18px;">
+        <td style="width: 683px; height: 18px;">&nbsp;</td>
+        </tr>
+        </tbody>
+        </table>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+    
+    </form>
+
+
